@@ -79,4 +79,8 @@ public class AzureBaseRepository<TEntity> : IAzureTableRepository<TEntity> where
     {
         return await TableClient.SubmitTransactionAsync(actionList, cancellationToken);
     }
+     public async Task<Response> InsertOrUpdate(TEntity entity, TableUpdateMode updateMode = TableUpdateMode.Merge, CancellationToken cancellationToken = default)
+    {
+        return await TableClient.UpsertEntityAsync(entity, updateMode, cancellationToken);
+    }
 }
