@@ -11,6 +11,8 @@ namespace DAL.Repositories;
 public interface IAzureTableRepository<TEntity> where TEntity : class, ITableEntity, new()
 {
     Task<Response> InsertAsync(TEntity entity, CancellationToken cancellationToken = default);
+     Task<Response> InsertOrUpdate(TEntity entity, TableUpdateMode updateMode = TableUpdateMode.Merge, CancellationToken cancellationToken = default);
+  
     Task<Response<IReadOnlyList<Response>>> BulkAsync(IList<TEntity> entityList, TableTransactionActionType actionType = TableTransactionActionType.Add, CancellationToken cancellationToken = default);
     Task<Response<IReadOnlyList<Response>>> BulkAsync(IList<TableTransactionAction> actionList, CancellationToken cancellationToken = default);
     Task<Response> UpdateAsync(TEntity entity, TableUpdateMode tableUpdateMode, CancellationToken cancellationToken = default);
